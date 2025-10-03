@@ -14,18 +14,17 @@ contract Voting{
 
     // 一个mapping来存储候选人的得票数
     mapping(string => uint256) public votes;
-    mapping(string => bool) public candidateExists;
-
-    function vote(string memory user)public {
-        if (!candidateExists[user]) {
+    mapping(string => bool) public exist;
+    function vote(string memory user)public returns (uint256){
+        if(!exist[user]){
             candidates.push(user);
-            candidateExists[user] = true;
+            exist[user] = true;
         }
-
         votes[user]++;
+        return votes[user];
     }
 
-    function getVotes(string memory user)public view returns (uint256){
+    function getVotes(string memory user)public view returns (uint256){ 
         return votes[user];
     }
 
