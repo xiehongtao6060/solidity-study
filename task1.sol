@@ -14,8 +14,14 @@ contract Voting{
 
     // 一个mapping来存储候选人的得票数
     mapping(string => uint256) public votes;
+    mapping(string => bool) public candidateExists;
 
     function vote(string memory user)public {
+        if (!candidateExists[user]) {
+            candidates.push(user);
+            candidateExists[user] = true;
+        }
+
         votes[user]++;
     }
 
